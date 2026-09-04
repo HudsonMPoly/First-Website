@@ -1,155 +1,825 @@
 <!DOCTYPE html>
-<!--
-  ================================================================
-  READ THIS BEFORE YOU PASTE ANYTHING
-
-  When Gemini gives you a page, you do NOT paste it into a part of
-  this file. You replace the entire file.
-
-  Click into the editor, press Ctrl+A (Cmd+A on Mac), press Delete,
-  then paste. Everything here is meant to be thrown away.
-
-  Do that only AFTER your live link works. Get the link first.
-  ================================================================
--->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My first site</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0d1d30;
-    --card: #142a44;
-    --line: #27466a;
-    --aqua: #6de1d7;
-    --text: #ffffff;
-    --muted: #94a9bf;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--navy);
-    color: var(--text);
-    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-    line-height: 1.6;
-    display: flex;
-    justify-content: center;
-    padding: 6vh 20px;
-  }
-  main { width: 100%; max-width: 640px; }
-  .badge {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 18px;
-  }
-  h1 {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: clamp(38px, 9vw, 68px);
-    letter-spacing: -0.05em;
-    line-height: 1.02;
-    margin: 0 0 8px;
-  }
-  .name {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 600;
-    font-size: clamp(18px, 4vw, 24px);
-    letter-spacing: -0.04em;
-    color: var(--aqua);
-    margin: 0 0 24px;
-  }
-  p.lead { font-size: 18px; color: var(--muted); margin: 0 0 34px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 26px 28px;
-    margin-bottom: 18px;
-  }
-  .card h2 {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin: 0 0 16px;
-  }
-  ol { margin: 0; padding-left: 20px; }
-  li { margin-bottom: 12px; color: var(--muted); }
-  li:last-child { margin-bottom: 0; }
-  li b { color: var(--text); font-weight: 700; }
-  code {
-    font-family: ui-monospace, "SF Mono", Consolas, monospace;
-    font-size: 0.92em;
-    background: #0a1727;
-    border: 1px solid var(--line);
-    border-radius: 5px;
-    padding: 1px 6px;
-    color: var(--aqua);
-  }
-  a { color: var(--aqua); }
-  footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #6e839a;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gut Health & Macro Recipe Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #f6f8f5;
+      --bg-surface: #ffffff;
+      --text-main: #1b2823;
+      --text-muted: #5e6d66;
+      --primary: #2d6a4f;
+      --primary-light: #eaf4ee;
+      --primary-border: #b8d8c8;
+      --accent-coral: #e07a5f;
+      --accent-coral-light: #fdf0ec;
+      --accent-amber: #d97706;
+      --accent-amber-light: #fef3c7;
+      --border-color: #e2e8e4;
+      --shadow-sm: 0 2px 8px rgba(45, 106, 79, 0.04);
+      --shadow-md: 0 6px 24px -4px rgba(45, 106, 79, 0.08);
+      --shadow-lg: 0 12px 32px -6px rgba(45, 106, 79, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* TRACKER CARD */
+    .tracker-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 2.25rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .tracker-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .tracker-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .targets-config {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 900px) {
+      .targets-config {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    .config-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .inputs-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .input-group label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background-color: var(--bg-base);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #fff;
+    }
+
+    .macro-progress-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 550px) {
+      .macro-progress-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .macro-box {
+      background: var(--bg-base);
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .macro-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .macro-lbl {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .macro-val {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: #e2e8e4;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .progress-fill.protein {
+      background: var(--accent-coral);
+    }
+
+    /* CONTROLS & FILTER BAR */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 1.25rem;
+      border-radius: 30px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 240px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.25rem;
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--bg-surface);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* RECIPE GRID */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .recipe-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-border);
+    }
+
+    .recipe-card.selected {
+      border: 2px solid var(--primary);
+      background-color: #fcfdfe;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .category-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.6rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+    }
+
+    .gut-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+      background: var(--accent-amber-light);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .recipe-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .recipe-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .macro-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--bg-base);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-val {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .stat-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .btn-select {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+
+    .btn-select:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .recipe-card.selected .btn-select {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-link {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-link:hover {
+      background: var(--bg-base);
+      border-color: #cbd5e1;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 1rem;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-color);
+      color: var(--text-muted);
+    }
+  </style>
 </head>
 <body>
-<main>
 
-  <span class="badge">Cal Poly Vibe Coding &middot; Session 01</span>
+  <div class="container">
+    <header>
+      <h1>Gut-Healthy Macro Hub</h1>
+      <p>High-protein, gut-friendly recipes crafted with fermentable fibers, probiotics, and clean nutrients to hit your daily goals effortlessly.</p>
+    </header>
 
-  <h1>It&rsquo;s live.</h1>
+    <!-- TRACKER -->
+    <div class="tracker-card">
+      <div class="tracker-grid">
+        <div class="targets-config">
+          <div class="config-title">
+            <span>⚙️</span> Customize Targets
+          </div>
+          <div class="inputs-row">
+            <div class="input-group">
+              <label for="input-cal">Calories</label>
+              <input type="number" id="input-cal" value="2200" step="50" oninput="updateTargets()">
+            </div>
+            <div class="input-group">
+              <label for="input-protein">Protein (g)</label>
+              <input type="number" id="input-protein" value="160" step="5" oninput="updateTargets()">
+            </div>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Select recipes below to log them into your daily plan.</p>
+        </div>
 
-  <!-- Step 5: change the name below to yours, then commit. -->
-  <p class="name">HUDSON MUUS</p>
+        <div class="macro-progress-container">
+          <div class="macro-box">
+            <div class="macro-info">
+              <span class="macro-lbl">Calories</span>
+              <span class="macro-val" id="cal-text">0 / 2200 kcal</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="cal-bar"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-info">
+              <span class="macro-lbl">Protein</span>
+              <span class="macro-val" id="protein-text">0 / 160 g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill protein" id="protein-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <p class="lead">
-    This page is on the internet. Anyone you send this link to can open it,
-    on any device, right now. You made that happen in about five minutes.
-  </p>
+    <!-- FILTERS AND SEARCH -->
+    <div class="controls-bar">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="filterRecipes('all', this)">All Recipes</button>
+        <button class="tab-btn" onclick="filterRecipes('breakfast', this)">Breakfast</button>
+        <button class="tab-btn" onclick="filterRecipes('lunch', this)">Lunch</button>
+        <button class="tab-btn" onclick="filterRecipes('dinner', this)">Dinner</button>
+        <button class="tab-btn" onclick="filterRecipes('snack', this)">Snacks & Treats</button>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search ingredient, benefit..." oninput="handleSearch()">
+      </div>
+    </div>
 
-  <div class="card">
-    <h2>Three things, in this order</h2>
-    <ol>
-      <li><b>Put your name on it.</b> Edit <code>index.html</code>, change
-        YOUR NAME HERE above, commit, refresh this page.</li>
-      <li><b>Submit this link.</b> Go to
-        <a href="https://www.calpolyvibecoding.com/">calpolyvibecoding.com</a>,
-        make an account, and paste this URL in. That is how you get counted,
-        and how Claude seats get assigned.</li>
-      <li><b>Then build.</b> Open Gemini, get a page, and replace this entire
-        file with it.</li>
-    </ol>
+    <!-- RECIPES GRID -->
+    <div class="recipe-grid" id="recipe-grid"></div>
   </div>
 
-  <div class="card">
-    <h2>How to replace this page</h2>
-    <ol>
-      <li>Copy what Gemini gives you with the <b>copy button</b> on the code
-        block. Do not click and drag.</li>
-      <li>Open <code>index.html</code> here and click the pencil icon.</li>
-      <li><b>Ctrl+A</b> (<b>Cmd+A</b> on Mac), then <b>Delete</b>. All of it.
-        Yes, really.</li>
-      <li>Paste, commit, refresh.</li>
-    </ol>
-  </div>
+  <script>
+    const recipes = [
+      // BREAKFAST
+      {
+        id: 1,
+        title: "Kefir Berry High-Protein Smoothie",
+        category: "breakfast",
+        calories: 440,
+        protein: 40,
+        carbs: 48,
+        gutBenefit: "Probiotics & Fiber",
+        desc: "Rich in active live cultures to support microbiome diversity, blended with gut-soothing wild blueberries, chia seeds, and whey isolate.",
+        url: "https://www.google.com/search?q=kefir+berry+protein+smoothie+recipe"
+      },
+      {
+        id: 2,
+        title: "Savory Miso Oats with Soft Egg",
+        category: "breakfast",
+        calories: 490,
+        protein: 32,
+        carbs: 52,
+        gutBenefit: "Fermented Miso + Prebiotics",
+        desc: "Steel-cut oats cooked in gut-soothing broth, whisked with fermented white miso, wilted spinach, sesame oil, and poached eggs.",
+        url: "https://www.google.com/search?q=savory+miso+oatmeal+egg+recipe"
+      },
+      {
+        id: 3,
+        title: "Greek Yogurt & Stewed Apple Parfait",
+        category: "breakfast",
+        calories: 410,
+        protein: 36,
+        carbs: 45,
+        gutBenefit: "Apple Pectin + Probiotics",
+        desc: "High-protein strained Greek yogurt layered with cinnamon-stewed warm apples (releasing prebiotic pectin) and chia seed crunch.",
+        url: "https://www.google.com/search?q=chia+greek+yogurt+stewed+apple+parfait+recipe"
+      },
+      {
+        id: 4,
+        title: "Sourdough Toast with Turkey & Avocado",
+        category: "breakfast",
+        calories: 520,
+        protein: 38,
+        carbs: 42,
+        gutBenefit: "Easy Digest Fermented Crust",
+        desc: "Authentic long-fermentation sourdough topped with sliced turkey breast, smashed avocado, pumpkin seeds, and fermented red onion.",
+        url: "https://www.google.com/search?q=sourdough+turkey+avocado+toast+recipe"
+      },
 
-  <footer>
-    Nothing on this page is precious. It exists so the link has something to
-    show before you have something of your own.
-  </footer>
+      // LUNCH
+      {
+        id: 5,
+        title: "Wild Salmon & Kimchi Rice Bowl",
+        category: "lunch",
+        calories: 620,
+        protein: 45,
+        carbs: 55,
+        gutBenefit: "Resistant Starch + Kimchi",
+        desc: "Wild salmon over cooled & reheated jasmine rice (high resistant starch) paired with live fermented unpasteurized kimchi and cucumbers.",
+        url: "https://www.google.com/search?q=kimchi+salmon+rice+bowl+recipe"
+      },
+      {
+        id: 6,
+        title: "Turkey & Raw Sauerkraut Power Bowl",
+        category: "lunch",
+        calories: 560,
+        protein: 44,
+        carbs: 48,
+        gutBenefit: "Lactic Acid Bacteria",
+        desc: "Lean ground turkey spiced with ginger and turmeric over quinoa, served with crunchy raw sauerkraut and steamed zucchini.",
+        url: "https://www.google.com/search?q=turkey+sauerkraut+quinoa+bowl+recipe"
+      },
+      {
+        id: 7,
+        title: "Tempeh & Roasted Root Salad",
+        category: "lunch",
+        calories: 510,
+        protein: 35,
+        carbs: 46,
+        gutBenefit: "Fermented Whole Soy + Polyphenols",
+        desc: "Organic fermented tempeh pan-seared in tamari, tossed with warm roasted beets, butternut squash, and leafy bitter greens.",
+        url: "https://www.google.com/search?q=tempeh+roasted+root+vegetable+salad+recipe"
+      },
+      {
+        id: 8,
+        title: "Ginger Beef & Baby Bok Choy Bowl",
+        category: "lunch",
+        calories: 590,
+        protein: 42,
+        carbs: 40,
+        gutBenefit: "Motility-Boosting Ginger",
+        desc: "Thinly sliced grass-fed beef sauteed with fresh ginger root, garlic, and steamed leafy bok choy over short-grain brown rice.",
+        url: "https://www.google.com/search?q=ginger+beef+bok+choy+rice+bowl+recipe"
+      },
 
-</main>
+      // DINNER
+      {
+        id: 9,
+        title: "Bone Broth Chicken & Root Vegetable Stew",
+        category: "dinner",
+        calories: 580,
+        protein: 52,
+        carbs: 38,
+        gutBenefit: "Gut-Lining Collagen",
+        desc: "Chicken breast simmered in rich gelatinous bone broth with carrots, parsnips, and thyme to support mucosal lining healing.",
+        url: "https://www.google.com/search?q=chicken+bone+broth+stew+recipe"
+      },
+      {
+        id: 10,
+        title: "Herb-Baked Cod with Asparagus & Yam",
+        category: "dinner",
+        calories: 490,
+        protein: 48,
+        carbs: 42,
+        gutBenefit: "Low-FODMAP Prebiotic Inulin",
+        desc: "Easily digestible tender white cod baked with herbs, served alongside roasted asparagus spears and sweet orange yam mash.",
+        url: "https://www.google.com/search?q=baked+cod+asparagus+sweet+potato+recipe"
+      },
+      {
+        id: 11,
+        title: "Turkey Meatballs in Golden Turmeric Sauce",
+        category: "dinner",
+        calories: 610,
+        protein: 46,
+        carbs: 44,
+        gutBenefit: "Anti-Inflammatory Spice Blend",
+        desc: "Lean turkey meatballs gently simmered in a coconut milk, turmeric, and ginger curry sauce over prebiotic-rich wild rice.",
+        url: "https://www.google.com/search?q=turkey+meatballs+turmeric+coconut+curry+recipe"
+      },
+      {
+        id: 12,
+        title: "Seared Mackerel & Fermented Slaw",
+        category: "dinner",
+        calories: 640,
+        protein: 43,
+        carbs: 28,
+        gutBenefit: "Omega-3 + Cabbage Fiber",
+        desc: "Crispy pan-seared omega-rich mackerel paired with a fresh lacto-fermented red cabbage and carrot slaw.",
+        url: "https://www.google.com/search?q=seared+mackerel+fermented+cabbage+slaw+recipe"
+      },
+
+      // SNACKS
+      {
+        id: 13,
+        title: "Cultured Cottage Cheese & Papaya Bowl",
+        category: "snack",
+        calories: 230,
+        protein: 26,
+        carbs: 22,
+        gutBenefit: "Digestive Enzymes (Papain)",
+        desc: "Probiotic live-culture cottage cheese served with fresh papaya slices, rich in natural papain enzymes that aid protein breakdown.",
+        url: "https://www.google.com/search?q=cottage+cheese+papaya+snack+recipe"
+      },
+      {
+        id: 14,
+        title: "Gut-Healing Collagen Cocoa Pudding",
+        category: "snack",
+        calories: 210,
+        protein: 20,
+        carbs: 18,
+        gutBenefit: "Glycine & Polyphenols",
+        desc: "Whipped cocoa pudding made with avocado, raw cacao, grass-fed collagen peptides, and a touch of raw unpasteurized honey.",
+        url: "https://www.google.com/search?q=collagen+cacao+avocado+pudding+recipe"
+      },
+      {
+        id: 15,
+        title: "Polyphenol Berry Chia Pudding",
+        category: "snack",
+        calories: 260,
+        protein: 15,
+        carbs: 28,
+        gutBenefit: "Soluble Fiber & Mucilage",
+        desc: "Chia seeds soaked in unsweetened almond milk topped with wild blackberries, crushed walnuts, and dark chocolate shavings.",
+        url: "https://www.google.com/search?q=chia+seed+berry+pudding+recipe"
+      }
+    ];
+
+    let targetCal = 2200;
+    let targetProtein = 160;
+    let selectedRecipeIds = new Set();
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    function updateTargets() {
+      targetCal = parseInt(document.getElementById('input-cal').value) || 2200;
+      targetProtein = parseInt(document.getElementById('input-protein').value) || 160;
+      updateTracker();
+    }
+
+    function renderRecipes() {
+      const grid = document.getElementById('recipe-grid');
+      grid.innerHTML = '';
+
+      const filtered = recipes.filter(recipe => {
+        const matchesCategory = currentCategory === 'all' || recipe.category === currentCategory;
+        const matchesSearch = recipe.title.toLowerCase().includes(searchQuery) ||
+                              recipe.desc.toLowerCase().includes(searchQuery) ||
+                              recipe.gutBenefit.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3>No recipes found</h3>
+            <p>Try searching for a different ingredient or clearing your filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(recipe => {
+        const isSelected = selectedRecipeIds.has(recipe.id);
+        const card = document.createElement('div');
+        card.className = `recipe-card ${isSelected ? 'selected' : ''}`;
+        
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <span class="category-badge">${recipe.category}</span>
+              <span class="gut-tag">🌱 ${recipe.gutBenefit}</span>
+            </div>
+            <h3 class="recipe-title">${recipe.title}</h3>
+            <p class="recipe-desc">${recipe.desc}</p>
+          </div>
+          <div>
+            <div class="macro-stats">
+              <div class="stat">
+                <span class="stat-val">${recipe.calories}</span>
+                <span class="stat-lbl">Calories</span>
+              </div>
+              <div class="stat">
+                <span class="stat-val">${recipe.protein}g</span>
+                <span class="stat-lbl">Protein</span>
+              </div>
+              <div class="stat">
+                <span class="stat-val">${recipe.carbs}g</span>
+                <span class="stat-lbl">Carbs</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-select" onclick="toggleSelect(${recipe.id})">
+                ${isSelected ? 'Added ✓' : '+ Add to Day'}
+              </button>
+              <a href="${recipe.url}" target="_blank" rel="noopener" class="btn btn-link">View Recipe ↗</a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleSelect(id) {
+      if (selectedRecipeIds.has(id)) {
+        selectedRecipeIds.delete(id);
+      } else {
+        selectedRecipeIds.add(id);
+      }
+      updateTracker();
+      renderRecipes();
+    }
+
+    function filterRecipes(category, btnElement) {
+      currentCategory = category;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+      renderRecipes();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+      renderRecipes();
+    }
+
+    function updateTracker() {
+      let totalCal = 0;
+      let totalProtein = 0;
+
+      recipes.forEach(r => {
+        if (selectedRecipeIds.has(r.id)) {
+          totalCal += r.calories;
+          totalProtein += r.protein;
+        }
+      });
+
+      document.getElementById('cal-text').innerText = `${totalCal} / ${targetCal} kcal`;
+      document.getElementById('protein-text').innerText = `${totalProtein} / ${targetProtein} g`;
+
+      const calPct = Math.min((totalCal / targetCal) * 100, 100);
+      const proteinPct = Math.min((totalProtein / targetProtein) * 100, 100);
+
+      document.getElementById('cal-bar').style.width = `${calPct}%`;
+      document.getElementById('protein-bar').style.width = `${proteinPct}%`;
+    }
+
+    // Initial render
+    renderRecipes();
+  </script>
 </body>
 </html>
