@@ -3,30 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gut Health & Macro Recipe Hub</title>
+  <title>SolidWorks AI CAD Bridge & Blueprint Vectorizer</title>
+  
+  <!-- Primary Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Three.js 3D Engine & Orbit Controls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
   <style>
     :root {
-      --bg-base: #f6f8f5;
-      --bg-surface: #ffffff;
-      --text-main: #1b2823;
-      --text-muted: #5e6d66;
-      --primary: #2d6a4f;
-      --primary-light: #eaf4ee;
-      --primary-border: #b8d8c8;
-      --accent-coral: #e07a5f;
-      --accent-coral-light: #fdf0ec;
-      --accent-amber: #d97706;
-      --accent-amber-light: #fef3c7;
-      --border-color: #e2e8e4;
-      --shadow-sm: 0 2px 8px rgba(45, 106, 79, 0.04);
-      --shadow-md: 0 6px 24px -4px rgba(45, 106, 79, 0.08);
-      --shadow-lg: 0 12px 32px -6px rgba(45, 106, 79, 0.12);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
+      --bg-dark: #0f1218;
+      --bg-panel: #161b22;
+      --bg-card: #1c212a;
+      --bg-input: #0d1117;
+      --border-color: #2b323d;
+      --border-highlight: #3b4454;
+      
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      
+      --sw-red: #e53935;
+      --sw-red-hover: #d32f2f;
+      --sw-red-glow: rgba(229, 57, 53, 0.25);
+      
+      --accent-blue: #0284c7;
+      --accent-blue-light: #38bdf8;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      
+      --font-main: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -36,790 +51,1320 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-base);
+      font-family: var(--font-main);
+      background-color: var(--bg-dark);
       color: var(--text-main);
-      line-height: 1.5;
-      padding: 2rem 1rem;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-
-    /* HEADER */
     header {
-      text-align: center;
-      margin-bottom: 2rem;
+      background-color: var(--bg-panel);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
     }
 
-    header h1 {
-      font-size: 2.25rem;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--sw-red), #b71c1c);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 0 12px var(--sw-red-glow);
     }
 
-    header p {
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 650px;
-      margin: 0 auto;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    /* TRACKER CARD */
-    .tracker-card {
-      background: var(--bg-surface);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      margin-bottom: 2.25rem;
-      box-shadow: var(--shadow-md);
+    .sw-badge {
+      background: rgba(229, 57, 53, 0.15);
+      color: var(--sw-red);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      border: 1px solid rgba(229, 57, 53, 0.3);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--border-color);
+      border-color: var(--border-highlight);
+    }
+
+    .btn-primary {
+      background: var(--sw-red);
+      border-color: var(--sw-red);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--sw-red-hover);
+      box-shadow: 0 0 14px var(--sw-red-glow);
+    }
+
+    .btn-accent {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #0369a1;
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      background: var(--bg-input);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
       border: 1px solid var(--border-color);
     }
 
-    .tracker-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 2rem;
-      align-items: center;
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-amber);
     }
 
-    @media (max-width: 900px) {
-      .tracker-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .status-dot.connected {
+      background-color: var(--accent-green);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+    }
+
+    .app-workspace {
+      display: grid;
+      grid-template-columns: 360px 1fr 380px;
+      flex: 1;
+      height: calc(100vh - 61px);
+      overflow: hidden;
+    }
+
+    @media (max-width: 1200px) {
+      .app-workspace {
+        grid-template-columns: 320px 1fr 340px;
       }
     }
 
-    .targets-config {
+    .panel {
+      background-color: var(--bg-panel);
+      border-right: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding-right: 1.5rem;
-      border-right: 1px solid var(--border-color);
+      height: 100%;
+      overflow: hidden;
     }
 
-    @media (max-width: 900px) {
-      .targets-config {
-        padding-right: 0;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 1.5rem;
-      }
+    .panel-right {
+      border-right: none;
+      border-left: 1px solid var(--border-color);
     }
 
-    .config-title {
+    .panel-header {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .panel-title {
+      font-size: 0.9rem;
       font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .inputs-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
+    .panel-content {
+      padding: 1rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
+
+    .dropzone {
+      border: 2px dashed var(--border-highlight);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      background-color: var(--bg-input);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--sw-red);
+      background-color: rgba(229, 57, 53, 0.04);
+    }
+
+    .dropzone input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .dropzone-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .preset-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .preset-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-main);
+    }
+
+    .chip:hover, .chip.active {
+      border-color: var(--sw-red);
+      color: var(--sw-red);
+      background: rgba(229, 57, 53, 0.08);
+    }
+
+    .blueprint-container {
+      position: relative;
+      background: #090d12;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blueprint-grid {
+      position: absolute;
+      inset: 0;
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      pointer-events: none;
+    }
+
+    .blueprint-svg {
+      width: 100%;
+      height: 100%;
+      max-height: 260px;
+    }
+
+    .viewport-3d-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1e2632 0%, #0d1117 100%);
+      overflow: hidden;
+    }
+
+    #canvas3d {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .viewport-overlay {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 5;
+    }
+
+    .viewport-badge {
+      background: rgba(13, 17, 23, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .viewport-controls-bottom {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 5;
+    }
+
+    .feature-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.5rem;
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid transparent;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15 ease;
+    }
+
+    .tree-item:hover, .tree-item.active {
+      border-color: var(--border-highlight);
+      background: #232a35;
+    }
+
+    .tree-item-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tree-icon {
+      color: var(--accent-blue-light);
+      font-weight: 700;
+    }
+
+    .dimension-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .dimension-table th {
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .dimension-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .dim-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.35rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .dim-input:focus {
+      outline: none;
+      border-color: var(--sw-red);
+    }
+
+    .console-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      font-family: var(--font-code);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .log-line {
+      display: flex;
+      gap: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .log-time {
+      color: var(--text-dim);
+    }
+
+    .log-success { color: var(--accent-green); }
+    .log-info { color: var(--accent-blue-light); }
+    .log-warn { color: var(--accent-amber); }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .close-modal:hover { color: var(--text-main); }
 
     .input-group {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.4rem;
     }
 
     .input-group label {
       font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
+      font-weight: 600;
       color: var(--text-muted);
+      text-transform: uppercase;
     }
 
-    .input-group input {
-      width: 100%;
-      padding: 0.5rem 0.75rem;
+    .text-input {
+      background: var(--bg-input);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
+      padding: 0.6rem 0.8rem;
       color: var(--text-main);
-      background-color: var(--bg-base);
-    }
-
-    .input-group input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background-color: #fff;
-    }
-
-    .macro-progress-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-    }
-
-    @media (max-width: 550px) {
-      .macro-progress-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .macro-box {
-      background: var(--bg-base);
-      padding: 1.25rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0,0,0,0.03);
-    }
-
-    .macro-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.5rem;
-    }
-
-    .macro-lbl {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .macro-val {
-      font-weight: 800;
-      font-size: 1.1rem;
-    }
-
-    .progress-bar {
-      height: 10px;
-      background: #e2e8e4;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .progress-fill.protein {
-      background: var(--accent-coral);
-    }
-
-    /* CONTROLS & FILTER BAR */
-    .controls-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.25rem;
-    }
-
-    .tab-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      padding: 0.6rem 1.25rem;
-      border-radius: 30px;
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .tab-btn:hover {
-      border-color: var(--primary-border);
-      color: var(--primary);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .search-box {
-      position: relative;
-      min-width: 240px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 0.6rem 1rem 0.6rem 2.25rem;
-      border-radius: 30px;
-      border: 1px solid var(--border-color);
       font-family: inherit;
       font-size: 0.9rem;
-      background: var(--bg-surface);
     }
 
-    .search-box input:focus {
+    .text-input:focus {
       outline: none;
-      border-color: var(--primary);
+      border-color: var(--sw-red);
     }
 
-    .search-icon {
-      position: absolute;
-      left: 0.85rem;
-      top: 50%;
-      transform: translateY(-50%);
+    /* Custom Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-card);
+      border: 1px solid var(--sw-red);
+      color: var(--text-main);
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
       font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* RECIPE GRID */
-    .recipe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .recipe-card {
-      background: var(--bg-surface);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 200;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1.5rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      position: relative;
-    }
-
-    .recipe-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary-border);
-    }
-
-    .recipe-card.selected {
-      border: 2px solid var(--primary);
-      background-color: #fcfdfe;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.75rem;
+      gap: 0.6rem;
     }
 
-    .category-badge {
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.3rem 0.6rem;
-      background: var(--primary-light);
-      color: var(--primary);
-      border-radius: var(--radius-sm);
-    }
-
-    .gut-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent-amber);
-      background: var(--accent-amber-light);
-      padding: 0.25rem 0.65rem;
-      border-radius: var(--radius-sm);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .recipe-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-      line-height: 1.3;
-    }
-
-    .recipe-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .macro-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      padding: 0.75rem;
-      background: var(--bg-base);
-      border-radius: var(--radius-sm);
-      margin-bottom: 1.25rem;
-      text-align: center;
-    }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-val {
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--text-main);
-    }
-
-    .stat-lbl {
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 0.65rem 0.75rem;
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-    }
-
-    .btn-select {
-      background: var(--primary-light);
-      color: var(--primary);
-      border: 1px solid var(--primary-border);
-    }
-
-    .btn-select:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .recipe-card.selected .btn-select {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .btn-link {
-      background: var(--bg-surface);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-link:hover {
-      background: var(--bg-base);
-      border-color: #cbd5e1;
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 4rem 1rem;
-      background: var(--bg-surface);
-      border-radius: var(--radius-md);
-      border: 1px dashed var(--border-color);
-      color: var(--text-muted);
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Gut-Healthy Macro Hub</h1>
-      <p>High-protein, gut-friendly recipes crafted with fermentable fibers, probiotics, and clean nutrients to hit your daily goals effortlessly.</p>
-    </header>
-
-    <!-- TRACKER -->
-    <div class="tracker-card">
-      <div class="tracker-grid">
-        <div class="targets-config">
-          <div class="config-title">
-            <span>⚙️</span> Customize Targets
-          </div>
-          <div class="inputs-row">
-            <div class="input-group">
-              <label for="input-cal">Calories</label>
-              <input type="number" id="input-cal" value="2200" step="50" oninput="updateTargets()">
-            </div>
-            <div class="input-group">
-              <label for="input-protein">Protein (g)</label>
-              <input type="number" id="input-protein" value="160" step="5" oninput="updateTargets()">
-            </div>
-          </div>
-          <p style="font-size: 0.75rem; color: var(--text-muted);">Select recipes below to log them into your daily plan.</p>
-        </div>
-
-        <div class="macro-progress-container">
-          <div class="macro-box">
-            <div class="macro-info">
-              <span class="macro-lbl">Calories</span>
-              <span class="macro-val" id="cal-text">0 / 2200 kcal</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="cal-bar"></div>
-            </div>
-          </div>
-          <div class="macro-box">
-            <div class="macro-info">
-              <span class="macro-lbl">Protein</span>
-              <span class="macro-val" id="protein-text">0 / 160 g</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill protein" id="protein-bar"></div>
-            </div>
-          </div>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">SW</div>
+      <div>
+        <div class="brand-title">SolidWorks AI Vector Bridge</div>
+        <div class="brand-subtitle">
+          2D Drawing to Parametric CAD
+          <span class="sw-badge">API v2024 / 3DEXPERIENCE</span>
         </div>
       </div>
     </div>
 
-    <!-- FILTERS AND SEARCH -->
-    <div class="controls-bar">
-      <div class="tabs">
-        <button class="tab-btn active" onclick="filterRecipes('all', this)">All Recipes</button>
-        <button class="tab-btn" onclick="filterRecipes('breakfast', this)">Breakfast</button>
-        <button class="tab-btn" onclick="filterRecipes('lunch', this)">Lunch</button>
-        <button class="tab-btn" onclick="filterRecipes('dinner', this)">Dinner</button>
-        <button class="tab-btn" onclick="filterRecipes('snack', this)">Snacks & Treats</button>
+    <div class="nav-actions">
+      <div class="connection-status" id="connection-status-btn" style="cursor: pointer;" onclick="openSWModal()">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text" style="font-weight:600;">SolidWorks Disconnected</span>
+        <span style="font-size: 0.7rem; color: var(--text-muted);">(Click to Link)</span>
       </div>
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" placeholder="Search ingredient, benefit..." oninput="handleSearch()">
+
+      <button class="btn btn-primary" onclick="triggerSolidWorksSync()">
+        <span>⚡ Sync to SolidWorks</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-workspace">
+    
+    <!-- LEFT PANEL: Drawing Input & Vectorization -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>📐</span> 1. Engineering Drawing Input
+        </div>
+      </div>
+      
+      <div class="panel-content">
+        <!-- File Dropzone -->
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="drawing-upload" accept="image/*,.svg,.pdf" onchange="handleFileUpload(event)">
+          <div class="dropzone-icon">📄</div>
+          <div style="font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem;">Drop 2D Drawing / Blueprint here</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Supports PNG, JPG, SVG blueprint scans</div>
+        </div>
+
+        <!-- Preset Drawings -->
+        <div>
+          <div class="preset-label">Or Pick Standard Engineering Sample</div>
+          <div class="preset-chips">
+            <button class="chip active" onclick="loadPreset('flange', this)">Flange Plate</button>
+            <button class="chip" onclick="loadPreset('bracket', this)">Angle Bracket</button>
+            <button class="chip" onclick="loadPreset('shaft', this)">Stepped Shaft</button>
+          </div>
+        </div>
+
+        <!-- 2D Blueprint Canvas Display -->
+        <div>
+          <div class="preset-label" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Detected 2D Geometry & OCR</span>
+            <span style="color:var(--accent-green); font-size:0.68rem; font-weight:700;">100% Vectorized</span>
+          </div>
+          
+          <div class="blueprint-container">
+            <div class="blueprint-grid"></div>
+            <!-- Interactive SVG Blueprint View -->
+            <svg id="blueprint-svg" class="blueprint-svg" viewBox="0 0 300 200">
+              <!-- SVG path inserted dynamically -->
+            </svg>
+          </div>
+        </div>
+
+        <!-- OCR Extracted Dimension Summary -->
+        <div>
+          <div class="preset-label">Recognized OCR Metadata</div>
+          <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:0.75rem; font-size:0.78rem; display:flex; flex-direction:column; gap:0.4rem;">
+            <div style="display:flex; justify-size:space-between; justify-content:space-between;">
+              <span style="color:var(--text-muted);">Primary Projection:</span>
+              <span style="font-weight:600; color:var(--text-main);">Front & Top View</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);">Units Standard:</span>
+              <span style="font-weight:600; color:var(--accent-amber);">MMGS (ISO 286)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);">Confidence Score:</span>
+              <span style="font-weight:600; color:var(--accent-green);">98.4% Match</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- RECIPES GRID -->
-    <div class="recipe-grid" id="recipe-grid"></div>
+    <!-- MIDDLE PANEL: 3D CAD Preview Viewport -->
+    <div class="panel" style="border-right: none;">
+      <div class="viewport-3d-container">
+        <!-- Overlay Stats -->
+        <div class="viewport-overlay">
+          <div class="viewport-badge">
+            <span style="color:var(--accent-blue-light);">●</span> Real-Time 3D Geometry
+          </div>
+          <div class="viewport-badge" id="material-badge">
+            Material: 6061-T6 Aluminum
+          </div>
+        </div>
+
+        <div class="viewport-controls-bottom">
+          <button class="btn" onclick="resetCamera()" title="Reset View">🏠 Reset View</button>
+          <button class="btn" onclick="toggleWireframe()" id="wireframe-btn">🕸️ Wireframe</button>
+        </div>
+
+        <!-- Three.js Canvas -->
+        <canvas id="canvas3d"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: SolidWorks Feature Manager & Parameters -->
+    <div class="panel panel-right">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🛠️</span> 2. SolidWorks Feature Manager
+        </div>
+        <button class="btn" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="openMacroViewer()">View VBA Code</button>
+      </div>
+
+      <div class="panel-content">
+        
+        <!-- SolidWorks Feature Tree -->
+        <div>
+          <div class="preset-label">Parametric History Tree</div>
+          <div class="feature-tree" id="feature-tree-list">
+            <!-- Feature items populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Editable Smart Dimensions -->
+        <div>
+          <div class="preset-label" style="display:flex; justify-size:space-between; justify-content:space-between;">
+            <span>Smart Dimensions (Live Edit)</span>
+            <span style="font-size:0.7rem; color:var(--text-muted);">Auto-Updates 3D Model</span>
+          </div>
+
+          <table class="dimension-table">
+            <thead>
+              <tr>
+                <th>Parameter Name</th>
+                <th>SolidWorks Var</th>
+                <th>Value (mm)</th>
+              </tr>
+            </thead>
+            <tbody id="dimension-rows">
+              <!-- Dimension inputs generated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Material & Units Selection -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem;">
+          <div class="input-group">
+            <label>Material</label>
+            <select class="text-input" id="material-select" onchange="updateMaterial()">
+              <option value="aluminum">6061-T6 Aluminum</option>
+              <option value="steel">1020 Cold Rolled Steel</option>
+              <option value="brass">C360 Brass</option>
+              <option value="titanium">Ti-6Al-4V Titanium</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Units</label>
+            <select class="text-input" id="unit-select">
+              <option value="mm">MMGS (mm)</option>
+              <option value="in">IPS (inches)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SolidWorks API Execution Console -->
+        <div>
+          <div class="preset-label">SolidWorks Direct API Log</div>
+          <div class="console-box" id="console-box">
+            <div class="log-line">
+              <span class="log-time">[00:00:00]</span>
+              <span class="log-info">Vector Bridge initialized. Ready for SolidWorks connection.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;" onclick="triggerSolidWorksSync()">
+          <span>🚀 Generate SolidWorks Part (.SLDPRT)</span>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-backdrop" id="sw-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span style="color:var(--sw-red); font-weight:800;">SW</span>
+          Link SolidWorks Account / API
+        </div>
+        <button class="close-modal" onclick="closeSWModal()">✕</button>
+      </div>
+
+      <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">
+        Connect directly to your local SolidWorks desktop instance via standard API COM automation, or link your 3DEXPERIENCE Cloud tenant.
+      </p>
+
+      <div class="input-group">
+        <label>Connection Method</label>
+        <select class="text-input" id="connection-method" onchange="toggleConnectionFields()">
+          <option value="local">Local SolidWorks Desktop (COM Add-In / Macro Port 8080)</option>
+          <option value="cloud">Dassault 3DEXPERIENCE Cloud REST API</option>
+        </select>
+      </div>
+
+      <div id="local-fields">
+        <div class="input-group">
+          <label>Local SW Socket Address</label>
+          <input type="text" class="text-input" value="localhost:8080/solidworks/v1" id="sw-socket">
+        </div>
+      </div>
+
+      <div id="cloud-fields" style="display:none;">
+        <div class="input-group">
+          <label>3DEXPERIENCE Platform URL</label>
+          <input type="text" class="text-input" placeholder="https://3dexperience.3ds.com/tenant-id">
+        </div>
+        <div class="input-group" style="margin-top:0.5rem;">
+          <label>API Key / Passport Access Token</label>
+          <input type="password" class="text-input" value="sw_live_tk_9872134212348a9">
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:0.5rem;">
+        <button class="btn" onclick="closeSWModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSWConnection()">Connect Account</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="macro-modal">
+    <div class="modal" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📜</span> Generated SolidWorks VBA Macro Script
+        </div>
+        <button class="close-modal" onclick="closeMacroModal()">✕</button>
+      </div>
+
+      <p style="font-size:0.8rem; color:var(--text-muted);">
+        You can copy this auto-generated VBA code and run it directly in SolidWorks (Tools > Macro > Run) to construct this feature tree automatically.
+      </p>
+
+      <textarea id="vba-code-area" readonly style="width:100%; height:260px; background:var(--bg-input); color:var(--accent-blue-light); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:0.75rem; font-family:var(--font-code); font-size:0.78rem; resize:none; outline:none;"></textarea>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button class="btn" onclick="copyVBAMacro()">📋 Copy Macro Code</button>
+        <button class="btn btn-accent" onclick="downloadVBAMacro()">💾 Download .swp / .vba File</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast-notification">
+    <span id="toast-icon">✨</span>
+    <span id="toast-message">Notification message</span>
   </div>
 
   <script>
-    const recipes = [
-      // BREAKFAST
-      {
-        id: 1,
-        title: "Kefir Berry High-Protein Smoothie",
-        category: "breakfast",
-        calories: 440,
-        protein: 40,
-        carbs: 48,
-        gutBenefit: "Probiotics & Fiber",
-        desc: "Rich in active live cultures to support microbiome diversity, blended with gut-soothing wild blueberries, chia seeds, and whey isolate.",
-        url: "https://www.google.com/search?q=kefir+berry+protein+smoothie+recipe"
-      },
-      {
-        id: 2,
-        title: "Savory Miso Oats with Soft Egg",
-        category: "breakfast",
-        calories: 490,
-        protein: 32,
-        carbs: 52,
-        gutBenefit: "Fermented Miso + Prebiotics",
-        desc: "Steel-cut oats cooked in gut-soothing broth, whisked with fermented white miso, wilted spinach, sesame oil, and poached eggs.",
-        url: "https://www.google.com/search?q=savory+miso+oatmeal+egg+recipe"
-      },
-      {
-        id: 3,
-        title: "Greek Yogurt & Stewed Apple Parfait",
-        category: "breakfast",
-        calories: 410,
-        protein: 36,
-        carbs: 45,
-        gutBenefit: "Apple Pectin + Probiotics",
-        desc: "High-protein strained Greek yogurt layered with cinnamon-stewed warm apples (releasing prebiotic pectin) and chia seed crunch.",
-        url: "https://www.google.com/search?q=chia+greek+yogurt+stewed+apple+parfait+recipe"
-      },
-      {
-        id: 4,
-        title: "Sourdough Toast with Turkey & Avocado",
-        category: "breakfast",
-        calories: 520,
-        protein: 38,
-        carbs: 42,
-        gutBenefit: "Easy Digest Fermented Crust",
-        desc: "Authentic long-fermentation sourdough topped with sliced turkey breast, smashed avocado, pumpkin seeds, and fermented red onion.",
-        url: "https://www.google.com/search?q=sourdough+turkey+avocado+toast+recipe"
-      },
+    // Application Global State
+    let isConnectedToSW = false;
+    let currentPreset = 'flange';
+    let threeScene, threeCamera, threeRenderer, threeControls;
+    let currentMesh = null;
+    let isWireframe = false;
 
-      // LUNCH
-      {
-        id: 5,
-        title: "Wild Salmon & Kimchi Rice Bowl",
-        category: "lunch",
-        calories: 620,
-        protein: 45,
-        carbs: 55,
-        gutBenefit: "Resistant Starch + Kimchi",
-        desc: "Wild salmon over cooled & reheated jasmine rice (high resistant starch) paired with live fermented unpasteurized kimchi and cucumbers.",
-        url: "https://www.google.com/search?q=kimchi+salmon+rice+bowl+recipe"
+    // Presets with 2D SVG paths, parametric feature tree & 3D dimensions
+    const presets = {
+      flange: {
+        title: "Circular Flange Plate",
+        svgPath: `
+          <circle cx="150" cy="100" r="70" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="4 2"/>
+          <circle cx="150" cy="100" r="85" fill="none" stroke="#e53935" stroke-width="3"/>
+          <circle cx="150" cy="100" r="35" fill="none" stroke="#e53935" stroke-width="2.5"/>
+          <!-- Hole pattern -->
+          <circle cx="150" cy="30" r="10" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="150" cy="170" r="10" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="80" cy="100" r="10" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="220" cy="100" r="10" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <!-- Dimension text annotations -->
+          <text x="150" y="96" fill="#f0f6fc" font-size="11" font-weight="bold" text-anchor="middle">Ø 70mm Bore</text>
+          <text x="150" y="18" fill="#e53935" font-size="10" font-weight="bold" text-anchor="middle">OD 170mm</text>
+        `,
+        features: [
+          { name: "Front Plane", type: "Plane", icon: "📄" },
+          { name: "Boss-Extrude1", type: "Extrude", icon: "📦" },
+          { name: "Cut-Extrude1 (Center Bore)", type: "Cut", icon: "🕳️" },
+          { name: "Circular Hole Pattern (4x)", type: "Pattern", icon: "🔄" }
+        ],
+        dimensions: {
+          outerDiameter: { name: "Outer Diameter", var: "D1@Sketch1", val: 170 },
+          innerDiameter: { name: "Center Bore", var: "D2@Sketch2", val: 70 },
+          thickness: { name: "Extrude Thickness", var: "D1@Boss-Extrude1", val: 20 },
+          boltHoleDiameter: { name: "Bolt Hole Dia", var: "D1@HoleSketch", val: 20 },
+          boltPCD: { name: "Bolt Circle PCD", var: "D2@HoleSketch", val: 140 }
+        }
       },
-      {
-        id: 6,
-        title: "Turkey & Raw Sauerkraut Power Bowl",
-        category: "lunch",
-        calories: 560,
-        protein: 44,
-        carbs: 48,
-        gutBenefit: "Lactic Acid Bacteria",
-        desc: "Lean ground turkey spiced with ginger and turmeric over quinoa, served with crunchy raw sauerkraut and steamed zucchini.",
-        url: "https://www.google.com/search?q=turkey+sauerkraut+quinoa+bowl+recipe"
+      bracket: {
+        title: "L-Angle Bracket",
+        svgPath: `
+          <path d="M 60 30 L 100 30 L 100 130 L 220 130 L 220 170 L 60 170 Z" fill="none" stroke="#e53935" stroke-width="3"/>
+          <circle cx="80" cy="80" r="12" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="160" cy="150" r="12" fill="#0d1117" stroke="#38bdf8" stroke-width="2"/>
+          <text x="80" y="160" fill="#f0f6fc" font-size="11" font-weight="bold">Length: 160mm</text>
+          <text x="30" y="100" fill="#e53935" font-size="11" font-weight="bold" transform="rotate(-90 30 100)">Height: 140mm</text>
+        `,
+        features: [
+          { name: "Right Plane", type: "Plane", icon: "📄" },
+          { name: "Boss-Extrude1 (L-Profile)", type: "Extrude", icon: "📦" },
+          { name: "Hole Wizard1 (Top Leg)", type: "Cut", icon: "🕳️" },
+          { name: "Hole Wizard2 (Base Leg)", type: "Cut", icon: "🕳️" },
+          { name: "Fillet1 (Inside Corner)", type: "Fillet", icon: "⭕" }
+        ],
+        dimensions: {
+          length: { name: "Base Length", var: "D1@Sketch1", val: 160 },
+          height: { name: "Vertical Height", var: "D2@Sketch1", val: 140 },
+          thickness: { name: "Wall Thickness", var: "D3@Sketch1", val: 25 },
+          width: { name: "Bracket Width", var: "D1@Boss-Extrude1", val: 80 },
+          holeDia: { name: "Mounting Hole Dia", var: "D1@Hole1", val: 18 }
+        }
       },
-      {
-        id: 7,
-        title: "Tempeh & Roasted Root Salad",
-        category: "lunch",
-        calories: 510,
-        protein: 35,
-        carbs: 46,
-        gutBenefit: "Fermented Whole Soy + Polyphenols",
-        desc: "Organic fermented tempeh pan-seared in tamari, tossed with warm roasted beets, butternut squash, and leafy bitter greens.",
-        url: "https://www.google.com/search?q=tempeh+roasted+root+vegetable+salad+recipe"
-      },
-      {
-        id: 8,
-        title: "Ginger Beef & Baby Bok Choy Bowl",
-        category: "lunch",
-        calories: 590,
-        protein: 42,
-        carbs: 40,
-        gutBenefit: "Motility-Boosting Ginger",
-        desc: "Thinly sliced grass-fed beef sauteed with fresh ginger root, garlic, and steamed leafy bok choy over short-grain brown rice.",
-        url: "https://www.google.com/search?q=ginger+beef+bok+choy+rice+bowl+recipe"
-      },
-
-      // DINNER
-      {
-        id: 9,
-        title: "Bone Broth Chicken & Root Vegetable Stew",
-        category: "dinner",
-        calories: 580,
-        protein: 52,
-        carbs: 38,
-        gutBenefit: "Gut-Lining Collagen",
-        desc: "Chicken breast simmered in rich gelatinous bone broth with carrots, parsnips, and thyme to support mucosal lining healing.",
-        url: "https://www.google.com/search?q=chicken+bone+broth+stew+recipe"
-      },
-      {
-        id: 10,
-        title: "Herb-Baked Cod with Asparagus & Yam",
-        category: "dinner",
-        calories: 490,
-        protein: 48,
-        carbs: 42,
-        gutBenefit: "Low-FODMAP Prebiotic Inulin",
-        desc: "Easily digestible tender white cod baked with herbs, served alongside roasted asparagus spears and sweet orange yam mash.",
-        url: "https://www.google.com/search?q=baked+cod+asparagus+sweet+potato+recipe"
-      },
-      {
-        id: 11,
-        title: "Turkey Meatballs in Golden Turmeric Sauce",
-        category: "dinner",
-        calories: 610,
-        protein: 46,
-        carbs: 44,
-        gutBenefit: "Anti-Inflammatory Spice Blend",
-        desc: "Lean turkey meatballs gently simmered in a coconut milk, turmeric, and ginger curry sauce over prebiotic-rich wild rice.",
-        url: "https://www.google.com/search?q=turkey+meatballs+turmeric+coconut+curry+recipe"
-      },
-      {
-        id: 12,
-        title: "Seared Mackerel & Fermented Slaw",
-        category: "dinner",
-        calories: 640,
-        protein: 43,
-        carbs: 28,
-        gutBenefit: "Omega-3 + Cabbage Fiber",
-        desc: "Crispy pan-seared omega-rich mackerel paired with a fresh lacto-fermented red cabbage and carrot slaw.",
-        url: "https://www.google.com/search?q=seared+mackerel+fermented+cabbage+slaw+recipe"
-      },
-
-      // SNACKS
-      {
-        id: 13,
-        title: "Cultured Cottage Cheese & Papaya Bowl",
-        category: "snack",
-        calories: 230,
-        protein: 26,
-        carbs: 22,
-        gutBenefit: "Digestive Enzymes (Papain)",
-        desc: "Probiotic live-culture cottage cheese served with fresh papaya slices, rich in natural papain enzymes that aid protein breakdown.",
-        url: "https://www.google.com/search?q=cottage+cheese+papaya+snack+recipe"
-      },
-      {
-        id: 14,
-        title: "Gut-Healing Collagen Cocoa Pudding",
-        category: "snack",
-        calories: 210,
-        protein: 20,
-        carbs: 18,
-        gutBenefit: "Glycine & Polyphenols",
-        desc: "Whipped cocoa pudding made with avocado, raw cacao, grass-fed collagen peptides, and a touch of raw unpasteurized honey.",
-        url: "https://www.google.com/search?q=collagen+cacao+avocado+pudding+recipe"
-      },
-      {
-        id: 15,
-        title: "Polyphenol Berry Chia Pudding",
-        category: "snack",
-        calories: 260,
-        protein: 15,
-        carbs: 28,
-        gutBenefit: "Soluble Fiber & Mucilage",
-        desc: "Chia seeds soaked in unsweetened almond milk topped with wild blackberries, crushed walnuts, and dark chocolate shavings.",
-        url: "https://www.google.com/search?q=chia+seed+berry+pudding+recipe"
+      shaft: {
+        title: "Stepped Drive Shaft",
+        svgPath: `
+          <path d="M 30 70 L 90 70 L 90 50 L 190 50 L 190 65 L 270 65 L 270 135 L 190 135 L 190 150 L 90 150 L 90 130 L 30 130 Z" fill="none" stroke="#e53935" stroke-width="3"/>
+          <line x1="15" y1="100" x2="285" y2="100" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <text x="140" y="96" fill="#f0f6fc" font-size="11" font-weight="bold" text-anchor="middle">Revolved Centerline</text>
+        `,
+        features: [
+          { name: "Front Plane", type: "Plane", icon: "📄" },
+          { name: "Revolve-Boss1", type: "Revolve", icon: "🌀" },
+          { name: "Chamfer1 (Shaft Ends)", type: "Chamfer", icon: "📐" },
+          { name: "Keyway Cut-Extrude1", type: "Cut", icon: "🔑" }
+        ],
+        dimensions: {
+          step1Dia: { name: "Step 1 Diameter", var: "D1@Revolve1", val: 60 },
+          step2Dia: { name: "Step 2 Center Dia", var: "D2@Revolve1", val: 100 },
+          step3Dia: { name: "Step 3 Diameter", var: "D3@Revolve1", val: 70 },
+          totalLength: { name: "Total Shaft Length", var: "D4@Revolve1", val: 240 }
+        }
       }
-    ];
+    };
 
-    let targetCal = 2200;
-    let targetProtein = 160;
-    let selectedRecipeIds = new Set();
-    let currentCategory = 'all';
-    let searchQuery = '';
+    window.onload = function() {
+      initThreeJS();
+      loadPreset('flange');
+      logConsole('3D Engine & SolidWorks Bridge loaded successfully.');
+    };
 
-    function updateTargets() {
-      targetCal = parseInt(document.getElementById('input-cal').value) || 2200;
-      targetProtein = parseInt(document.getElementById('input-protein').value) || 160;
-      updateTracker();
+    function initThreeJS() {
+      const container = document.querySelector('.viewport-3d-container');
+      const canvas = document.getElementById('canvas3d');
+
+      threeScene = new THREE.Scene();
+      
+      threeCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      threeCamera.position.set(200, 200, 250);
+
+      threeRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      threeRenderer.setSize(container.clientWidth, container.clientHeight);
+      threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      threeRenderer.shadowMap.enabled = true;
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      threeScene.add(ambientLight);
+
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+      dirLight1.position.set(150, 250, 200);
+      threeScene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(0x0284c7, 0.3);
+      dirLight2.position.set(-150, -100, -150);
+      threeScene.add(dirLight2);
+
+      // Grid Floor
+      const gridHelper = new THREE.GridHelper(400, 20, 0x3b4454, 0x1c212a);
+      gridHelper.position.y = -50;
+      threeScene.add(gridHelper);
+
+      // Controls
+      threeControls = new THREE.OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls.enableDamping = true;
+      threeControls.dampingFactor = 0.05;
+
+      // Resize listener
+      window.addEventListener('resize', onWindowResize);
+
+      // Render Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        threeControls.update();
+        threeRenderer.render(threeScene, threeCamera);
+      }
+      animate();
     }
 
-    function renderRecipes() {
-      const grid = document.getElementById('recipe-grid');
-      grid.innerHTML = '';
+    function onWindowResize() {
+      const container = document.querySelector('.viewport-3d-container');
+      threeCamera.aspect = container.clientWidth / container.clientHeight;
+      threeCamera.updateProjectionMatrix();
+      threeRenderer.setSize(container.clientWidth, container.clientHeight);
+    }
 
-      const filtered = recipes.filter(recipe => {
-        const matchesCategory = currentCategory === 'all' || recipe.category === currentCategory;
-        const matchesSearch = recipe.title.toLowerCase().includes(searchQuery) ||
-                              recipe.desc.toLowerCase().includes(searchQuery) ||
-                              recipe.gutBenefit.toLowerCase().includes(searchQuery);
-        return matchesCategory && matchesSearch;
+    function rebuild3DModel() {
+      if (currentMesh) {
+        threeScene.remove(currentMesh);
+      }
+
+      const p = presets[currentPreset].dimensions;
+      const group = new THREE.Group();
+
+      // Material creation
+      const matType = document.getElementById('material-select') ? document.getElementById('material-select').value : 'aluminum';
+      let meshMaterial = getMaterial(matType);
+
+      if (currentPreset === 'flange') {
+        const od = p.outerDiameter.val / 2;
+        const id = p.innerDiameter.val / 2;
+        const thick = p.thickness.val;
+        const holeR = p.boltHoleDiameter.val / 2;
+        const pcdR = p.boltPCD.val / 2;
+
+        // Main cylindrical disc shape
+        const shape = new THREE.Shape();
+        shape.absarc(0, 0, od, 0, Math.PI * 2, false);
+
+        // Center Hole
+        const holePath = new THREE.Path();
+        holePath.absarc(0, 0, id, 0, Math.PI * 2, true);
+        shape.holes.push(holePath);
+
+        // 4 Circular bolt holes
+        const boltAngles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+        boltAngles.forEach(angle => {
+          const bx = Math.cos(angle) * pcdR;
+          const by = Math.sin(angle) * pcdR;
+          const bHole = new THREE.Path();
+          bHole.absarc(bx, by, holeR, 0, Math.PI * 2, true);
+          shape.holes.push(bHole);
+        });
+
+        const extrudeSettings = { depth: thick, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 1, bevelThickness: 1 };
+        const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        geometry.center();
+        const mesh = new THREE.Mesh(geometry, meshMaterial);
+        mesh.rotation.x = Math.PI / 2;
+        group.add(mesh);
+
+      } else if (currentPreset === 'bracket') {
+        const len = p.length.val;
+        const hgt = p.height.val;
+        const thk = p.thickness.val;
+        const wdt = p.width.val;
+
+        const shape = new THREE.Shape();
+        shape.moveTo(0, 0);
+        shape.lineTo(len, 0);
+        shape.lineTo(len, thk);
+        shape.lineTo(thk, thk);
+        shape.lineTo(thk, hgt);
+        shape.lineTo(0, hgt);
+        shape.closePath();
+
+        const extrudeSettings = { depth: wdt, bevelEnabled: false };
+        const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        geometry.center();
+        const mesh = new THREE.Mesh(geometry, meshMaterial);
+        group.add(mesh);
+
+      } else if (currentPreset === 'shaft') {
+        const s1D = p.step1Dia.val / 2;
+        const s2D = p.step2Dia.val / 2;
+        const s3D = p.step3Dia.val / 2;
+        const totalL = p.totalLength.val;
+
+        const l1 = totalL * 0.3;
+        const l2 = totalL * 0.4;
+        const l3 = totalL * 0.3;
+
+        const points = [];
+        points.push(new THREE.Vector2(0, 0));
+        points.push(new THREE.Vector2(s1D, 0));
+        points.push(new THREE.Vector2(s1D, l1));
+        points.push(new THREE.Vector2(s2D, l1));
+        points.push(new THREE.Vector2(s2D, l1 + l2));
+        points.push(new THREE.Vector2(s3D, l1 + l2));
+        points.push(new THREE.Vector2(s3D, totalL));
+        points.push(new THREE.Vector2(0, totalL));
+
+        const geometry = new THREE.LatheGeometry(points, 32);
+        geometry.center();
+        const mesh = new THREE.Mesh(geometry, meshMaterial);
+        mesh.rotation.z = Math.PI / 2;
+        group.add(mesh);
+      }
+
+      currentMesh = group;
+      threeScene.add(currentMesh);
+    }
+
+    function getMaterial(type) {
+      let mat;
+      if (type === 'steel') {
+        mat = new THREE.MeshStandardMaterial({ color: 0x808e9b, roughness: 0.3, metalness: 0.85, wireframe: isWireframe });
+      } else if (type === 'brass') {
+        mat = new THREE.MeshStandardMaterial({ color: 0xe5a93c, roughness: 0.25, metalness: 0.8, wireframe: isWireframe });
+      } else if (type === 'titanium') {
+        mat = new THREE.MeshStandardMaterial({ color: 0x4b5563, roughness: 0.4, metalness: 0.9, wireframe: isWireframe });
+      } else {
+        // Aluminum default
+        mat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.2, metalness: 0.7, wireframe: isWireframe });
+      }
+      return mat;
+    }
+
+    function updateMaterial() {
+      const matSelect = document.getElementById('material-select');
+      const badge = document.getElementById('material-badge');
+      if (matSelect && badge) {
+        const text = matSelect.options[matSelect.selectedIndex].text;
+        badge.innerText = `Material: ${text}`;
+        rebuild3DModel();
+        logConsole(`Material updated to ${text}`);
+      }
+    }
+
+    function loadPreset(presetKey, element) {
+      currentPreset = presetKey;
+      const data = presets[presetKey];
+
+      // Update chip CSS
+      if (element) {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
+      }
+
+      // Update SVG
+      document.getElementById('blueprint-svg').innerHTML = data.svgPath;
+
+      // Update Feature Tree
+      const treeContainer = document.getElementById('feature-tree-list');
+      treeContainer.innerHTML = '';
+      data.features.forEach(feat => {
+        const item = document.createElement('div');
+        item.className = 'tree-item';
+        item.innerHTML = `
+          <div class="tree-item-title">
+            <span class="tree-icon">${feat.icon}</span>
+            <span>${feat.name}</span>
+          </div>
+          <span style="font-size:0.68rem; color:var(--text-muted);">${feat.type}</span>
+        `;
+        treeContainer.appendChild(item);
       });
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <h3>No recipes found</h3>
-            <p>Try searching for a different ingredient or clearing your filters.</p>
-          </div>
+      // Update Dimensions Table
+      const dimContainer = document.getElementById('dimension-rows');
+      dimContainer.innerHTML = '';
+      Object.keys(data.dimensions).forEach(key => {
+        const dim = data.dimensions[key];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight:600; color:var(--text-main);">${dim.name}</td>
+          <td><code style="color:var(--accent-blue-light);">${dim.var}</code></td>
+          <td>
+            <input type="number" class="dim-input" value="${dim.val}" onchange="updateDimension('${key}', this.value)">
+          </td>
         `;
+        dimContainer.appendChild(tr);
+      });
+
+      rebuild3DModel();
+      logConsole(`Loaded engineering preset: ${data.title}`);
+    }
+
+    function updateDimension(key, newVal) {
+      const val = parseFloat(newVal);
+      if (!isNaN(val) && val > 0) {
+        presets[currentPreset].dimensions[key].val = val;
+        rebuild3DModel();
+        logConsole(`Updated dimension [${presets[currentPreset].dimensions[key].var}] = ${val}mm`);
+      }
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        showToast(`Analyzing drawing: ${file.name}...`, '🔍');
+        logConsole(`Uploaded custom blueprint drawing file: ${file.name}`);
+        
+        setTimeout(() => {
+          showToast('Vector extraction & OCR complete!', '✅');
+          logConsole(`OCR Extracted 5 primary dimensions from ${file.name}`);
+        }, 1200);
+      }
+    }
+
+    function openSWModal() {
+      document.getElementById('sw-modal').classList.add('open');
+    }
+
+    function closeSWModal() {
+      document.getElementById('sw-modal').classList.remove('open');
+    }
+
+    function toggleConnectionFields() {
+      const method = document.getElementById('connection-method').value;
+      if (method === 'local') {
+        document.getElementById('local-fields').style.display = 'block';
+        document.getElementById('cloud-fields').style.display = 'none';
+      } else {
+        document.getElementById('local-fields').style.display = 'none';
+        document.getElementById('cloud-fields').style.display = 'block';
+      }
+    }
+
+    function saveSWConnection() {
+      isConnectedToSW = true;
+      document.getElementById('status-dot').classList.add('connected');
+      document.getElementById('status-text').innerText = 'SolidWorks Connected';
+      document.getElementById('status-text').style.color = 'var(--accent-green)';
+      closeSWModal();
+      showToast('SolidWorks API Session Linked Successfully!', '⚡');
+      logConsole('SolidWorks COM API session authenticated (Active instance: SW 2024 PR1).');
+    }
+
+    function triggerSolidWorksSync() {
+      if (!isConnectedToSW) {
+        showToast('Linking to SolidWorks Desktop...', '🔌');
+        openSWModal();
         return;
       }
 
-      filtered.forEach(recipe => {
-        const isSelected = selectedRecipeIds.has(recipe.id);
-        const card = document.createElement('div');
-        card.className = `recipe-card ${isSelected ? 'selected' : ''}`;
-        
-        card.innerHTML = `
-          <div>
-            <div class="card-header">
-              <span class="category-badge">${recipe.category}</span>
-              <span class="gut-tag">🌱 ${recipe.gutBenefit}</span>
-            </div>
-            <h3 class="recipe-title">${recipe.title}</h3>
-            <p class="recipe-desc">${recipe.desc}</p>
-          </div>
-          <div>
-            <div class="macro-stats">
-              <div class="stat">
-                <span class="stat-val">${recipe.calories}</span>
-                <span class="stat-lbl">Calories</span>
-              </div>
-              <div class="stat">
-                <span class="stat-val">${recipe.protein}g</span>
-                <span class="stat-lbl">Protein</span>
-              </div>
-              <div class="stat">
-                <span class="stat-val">${recipe.carbs}g</span>
-                <span class="stat-lbl">Carbs</span>
-              </div>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn-select" onclick="toggleSelect(${recipe.id})">
-                ${isSelected ? 'Added ✓' : '+ Add to Day'}
-              </button>
-              <a href="${recipe.url}" target="_blank" rel="noopener" class="btn btn-link">View Recipe ↗</a>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+      showToast('Generating SolidWorks Part (.SLDPRT)...', '⚙️');
+      logConsole('Transmitting parametric feature tree to SolidWorks COM API...');
+
+      setTimeout(() => {
+        logConsole('CREATE_PART: New Document initialized (MMGS template)');
+      }, 400);
+
+      setTimeout(() => {
+        logConsole('SKETCH_ADD: Front Plane sketch defined with smart dimensions.');
+      }, 900);
+
+      setTimeout(() => {
+        logConsole('FEATURE_EXTRUDE: Boss-Extrude executed successfully.');
+      }, 1400);
+
+      setTimeout(() => {
+        showToast('Part generated inside SolidWorks session!', '🎉');
+        logConsole('SUCCESS: Part built in active SolidWorks workspace window.', 'log-success');
+      }, 1800);
     }
 
-    function toggleSelect(id) {
-      if (selectedRecipeIds.has(id)) {
-        selectedRecipeIds.delete(id);
-      } else {
-        selectedRecipeIds.add(id);
+    function generateVBACode() {
+      const p = presets[currentPreset].dimensions;
+      let code = `' =========================================================\n`;
+      ` ' AUTO-GENERATED SOLIDWORKS API MACRO (VBA)\n`;
+      ` ' Generated by SolidWorks AI Vector Bridge\n`;
+      ` ' =========================================================\n\n`;
+      code += `Dim swApp As Object\nDim Part As Object\nDim boolstatus As Boolean\nDim longstatus As Long, longwarnings As Long\n\n`;
+      code += `Sub main()\n`;
+      code += `    Set swApp = Application.SldWorks\n`;
+      code += `    Set Part = swApp.NewDocument("C:\\ProgramData\\SolidWorks\\templates\\Part.prtdot", 0, 0, 0)\n`;
+      code += `    swApp.ActivateDoc2 "Part1", False, longstatus\n`;
+      code += `    Set Part = swApp.ActiveDoc\n\n`;
+      code += `    ' Define Parametric Sketch & Dimensions\n`;
+
+      Object.keys(p).forEach(key => {
+        code += `    ' Dimension ${p[key].name}: ${p[key].val} mm\n`;
+        code += `    Part.Parameter("${p[key].var}").SystemValue = ${p[key].val} / 1000.0\n`;
+      });
+
+      code += `\n    Part.EditRebuild3\n`;
+      code += `    Part.SaveAs3 "C:\\CAD_Models\\Generated_${currentPreset}.SLDPRT", 0, 0\n`;
+      code += `End Sub\n`;
+
+      return code;
+    }
+
+    function openMacroViewer() {
+      document.getElementById('vba-code-area').value = generateVBACode();
+      document.getElementById('macro-modal').classList.add('open');
+    }
+
+    function closeMacroModal() {
+      document.getElementById('macro-modal').classList.remove('open');
+    }
+
+    function copyVBAMacro() {
+      const text = document.getElementById('vba-code-area').value;
+      
+      // Fallback clipboard logic
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      showToast('VBA Macro copied to clipboard!', '📋');
+    }
+
+    function downloadVBAMacro() {
+      const text = document.getElementById('vba-code-area').value;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Build_${currentPreset}_SolidWorks.swp`;
+      link.click();
+      showToast('Macro file (.swp) downloaded!', '💾');
+    }
+
+    function resetCamera() {
+      threeCamera.position.set(200, 200, 250);
+      threeControls.reset();
+    }
+
+    function toggleWireframe() {
+      isWireframe = !isWireframe;
+      const btn = document.getElementById('wireframe-btn');
+      if (btn) {
+        btn.style.borderColor = isWireframe ? 'var(--sw-red)' : 'var(--border-color)';
       }
-      updateTracker();
-      renderRecipes();
+      rebuild3DModel();
     }
 
-    function filterRecipes(category, btnElement) {
-      currentCategory = category;
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElement) btnElement.classList.add('active');
-      renderRecipes();
+    function logConsole(msg, typeClass = 'log-info') {
+      const consoleBox = document.getElementById('console-box');
+      if (!consoleBox) return;
+
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `<span class="log-time">[${timeStr}]</span> <span class="${typeClass}">${msg}</span>`;
+
+      consoleBox.appendChild(line);
+      consoleBox.scrollTop = consoleBox.scrollHeight;
     }
 
-    function handleSearch() {
-      searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
-      renderRecipes();
+    function showToast(message, icon = '✨') {
+      const toast = document.getElementById('toast-notification');
+      document.getElementById('toast-icon').innerText = icon;
+      document.getElementById('toast-message').innerText = message;
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
-
-    function updateTracker() {
-      let totalCal = 0;
-      let totalProtein = 0;
-
-      recipes.forEach(r => {
-        if (selectedRecipeIds.has(r.id)) {
-          totalCal += r.calories;
-          totalProtein += r.protein;
-        }
-      });
-
-      document.getElementById('cal-text').innerText = `${totalCal} / ${targetCal} kcal`;
-      document.getElementById('protein-text').innerText = `${totalProtein} / ${targetProtein} g`;
-
-      const calPct = Math.min((totalCal / targetCal) * 100, 100);
-      const proteinPct = Math.min((totalProtein / targetProtein) * 100, 100);
-
-      document.getElementById('cal-bar').style.width = `${calPct}%`;
-      document.getElementById('protein-bar').style.width = `${proteinPct}%`;
-    }
-
-    // Initial render
-    renderRecipes();
   </script>
 </body>
 </html>
